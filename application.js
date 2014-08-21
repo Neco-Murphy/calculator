@@ -1,12 +1,13 @@
 
 $(document).ready(function(){
+    // need to change the structure to show the formula
     var method = "";
     var value_a = "";
     var value_b = "";
     var first = 0;
 
     //input numbers to the box
-    $(".number").on("click", function () {
+    $(".number, .cal").on("click", function () {
         if(method != ""){
             $("#Result").text("0");
         };    
