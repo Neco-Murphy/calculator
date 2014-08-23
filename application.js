@@ -7,14 +7,14 @@ $(document).ready(function(){
     var first = 0;
 
     //input numbers to the box
-    $(".number, .cal").on("click", function () {
+    $(".number, .cal, .period").on("click", function () {
       var current = $("#Result").text();
       var input = $(this).text();
-      if(current === "0" & input === "."){
-        $("#Result").text("0" + input);
+      if(current === "0" && $(this).hasClass("number")){
+          $("#Result").text(input);
       }else{
         $("#Result").text(current + input);
-      };
+      };       
     });
 
     var show_result = function(){
