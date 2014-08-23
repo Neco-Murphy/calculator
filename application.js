@@ -1,53 +1,64 @@
 
 $(document).ready(function(){
-    // need to change the structure to show the formula
-    var method = "";
-    var value_a = "";
-    var value_b = "";
-    var first = 0;
+  var method = "";
+  var value_a = "";
+  var value_b = "";
+  var cal = 0;
 
-    //input numbers to the box
-    $(".number, .cal, .period").on("click", function () {
-      var current = $("#Result").text();
-      var input = $(this).text();
-      if(current === "0" && $(this).hasClass("number")){
-          $("#Result").text(input);
-      }else{
-        $("#Result").text(current + input);
-      };       
-    });
+  var showFormula = function(){
+    var current = $("#Result").text();
+    var input = $(this).text();
+    if(current === "0" && $(this).hasClass("number")){
+      $("#Result").text(input);
+    }else{
+      $("#Result").text(current + input);
+    };  
+    
+  };
 
-    var show_result = function(){
-        value_b = Number($("#Result").text());
-        var output = 0;
-        if(method != ""){
-            switch(method){
-                case "/": output = value_a / value_b;
-                        break;
-                case "*": output = value_a * value_b;
-                        break;
-                case "-": output = value_a - value_b;
-                        break;
-                case "+": output = value_a + value_b;
-                        break; 
-            };
-            $('#Result').text(output);
+  var show_result = function(){
+    var formula = $("#Result").text();
+    formula = formula.split(formula.match(/\D/)[0]);
+    value_a = formula[0];
+    value_b = formula[1];
+    var output = 0;
+    if(method != ""){
+      switch(method){
+        case "/": output = value_a / value_b;
+          break;
+        case "*": output = value_a * value_b;
+          break;
+        case "-": output = value_a - value_b;
+          break;
+        case "+": output = value_a + value_b;
+          break; 
         };
-        value_a = Number($('#Result').text());
+        $('#Result').text(output);
     };
-     
-    //calculation
-    $("#check").on("click", function(){
-        show_result();
-        method ="";
+    value_a = Number($('#Result').text());
+  };
 
-    });
+  //input numbers to the box
+  $(".number, .period").on("click", function () {
+    showFormula.apply(this);        
+  });
 
-    //method
-    $('.cal').on("click", function(){
-        show_result();
-        method = $(this).text();
-    });
+  //calculation
+  $("#check").on("click", function(){
+    show_result();
+    method ="";
+  });
+
+  //method
+  $('.cal').on("click", function(){
+    cal++;
+    if(cal === 2){
+      show_result();
+      cal--;
+    };
+    method = $(this).text();
+    showFormula.apply(this);
+  });
 
 
     //clear
@@ -56,4 +67,5 @@ $(document).ready(function(){
         value_a = "";
         method = "";
     });  
+
 });
