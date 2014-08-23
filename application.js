@@ -8,16 +8,13 @@ $(document).ready(function(){
 
     //input numbers to the box
     $(".number, .cal").on("click", function () {
-        if(method != ""){
-            $("#Result").text("0");
-        };    
-        var current = $("#Result").text();
-        var num = $(this).val();
-        if(current === "0" && num != "."){
-            $("#Result").text(num);
-        }else{
-            $("#Result").text(current+num);
-        };
+      var current = $("#Result").text();
+      var input = $(this).text();
+      if(current === "0" & input === "."){
+        $("#Result").text("0" + input);
+      }else{
+        $("#Result").text(current + input);
+      };
     });
 
     var show_result = function(){
