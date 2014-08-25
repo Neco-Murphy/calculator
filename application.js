@@ -1,8 +1,5 @@
-
+// need to fix - (doesnt distinguish minus and deduct)
 $(document).ready(function(){
-  var method = "";
-  var value_a = "";
-  var value_b = "";
   var cal = 0;
   var check = 0;
 
@@ -11,7 +8,7 @@ $(document).ready(function(){
     var input = $(this).text();
     if(current === "0" && $(this).hasClass("number")){
       $("#Result").text(input);
-    }else if(check === 1){
+    }else if(check === 1 && $(this).hasClass("number")){
       $("#Result").text(input);
     }else{
       $("#Result").text(current + input);
@@ -21,9 +18,10 @@ $(document).ready(function(){
 
   var show_result = function(){
     var formula = $("#Result").text();
-    formula = formula.split(formula.match(/\D/)[0]);
-    value_a = formula[0];
-    value_b = formula[1];
+    var method = formula.match(/[^0123456789.]/)[0];
+    formula = formula.split(method);
+    var value_a = Number(formula[0]);
+    var value_b = Number(formula[1]);
     var output = 0;
     if(method != ""){
       switch(method){
@@ -36,9 +34,8 @@ $(document).ready(function(){
         case "+": output = value_a + value_b;
           break; 
         };
-        $('#Result').text(output);
+        $('#Result').text(output.toString().substr(0,10));
     };
-    value_a = Number($('#Result').text());
   };
 
   //input numbers to the box
@@ -49,9 +46,8 @@ $(document).ready(function(){
   //calculation
   $("#check").on("click", function(){
     show_result();
-    method ="";
-    cal = 0;
-    check ++;
+    check++;
+    cal--;
   });
 
   //method
@@ -61,17 +57,14 @@ $(document).ready(function(){
       show_result();
       cal--;
     };
-    // show_result();
-    method = $(this).text();
     showFormula.apply(this);
   });
 
 
     //clear
     $("#clear").on('click',function(){
-        $('#Result').text("0");
-        value_a = "";
-        method = "";
+      $('#Result').text("0");
+      cal = 0;
     });  
 
 });
