@@ -4,17 +4,19 @@ $(document).ready(function(){
   var value_a = "";
   var value_b = "";
   var cal = 0;
-  var check;
+  var check = 0;
 
   var showFormula = function(){
     var current = $("#Result").text();
     var input = $(this).text();
     if(current === "0" && $(this).hasClass("number")){
       $("#Result").text(input);
+    }else if(check === 1){
+      $("#Result").text(input);
     }else{
       $("#Result").text(current + input);
     };  
-    
+    check = 0;
   };
 
   var show_result = function(){
@@ -49,6 +51,7 @@ $(document).ready(function(){
     show_result();
     method ="";
     cal = 0;
+    check ++;
   });
 
   //method
