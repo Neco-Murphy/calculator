@@ -4,6 +4,7 @@ $(document).ready(function(){
   var value_a = "";
   var value_b = "";
   var cal = 0;
+  var check;
 
   var showFormula = function(){
     var current = $("#Result").text();
@@ -40,13 +41,14 @@ $(document).ready(function(){
 
   //input numbers to the box
   $(".number, .period").on("click", function () {
-    showFormula.apply(this);        
+    showFormula.apply(this);
   });
 
   //calculation
   $("#check").on("click", function(){
     show_result();
     method ="";
+    cal = 0;
   });
 
   //method
@@ -56,6 +58,7 @@ $(document).ready(function(){
       show_result();
       cal--;
     };
+    // show_result();
     method = $(this).text();
     showFormula.apply(this);
   });
